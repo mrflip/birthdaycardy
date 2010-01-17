@@ -24,6 +24,9 @@ class Main < Monk::Glue
     :secret       => settings(:session_secret)
 end
 
+# random initializer
+srand
+
 # Load all application files.
 Dir[Monk::Glue.root_path("app/**/*.rb")].each do |file|
   require file
