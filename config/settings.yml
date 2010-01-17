@@ -2,6 +2,7 @@ defaults: &defaults
 
   # App settings
   :greeting:            happy birth day becky
+  :page_title:          Happy Birthday Becky!
   :random_img_path:     images/180px
   :page_refresh_rate:   5 # seconds
 

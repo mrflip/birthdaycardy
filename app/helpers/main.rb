@@ -6,6 +6,11 @@ class Main < Monk::Glue
       filename = File.basename( Dir[File.join(PUBLIC_ROOT_PATH, settings(:random_img_path), handle.to_s, '*')].to_a.random )
       image_tag( '/'+File.join(settings(:random_img_path), handle.to_s, filename), handle )
     end
+
+    def site_title str=""
+      %Q{#{settings(:app_name)} :: #{settings(:page_title) || settings(:greeting)} }
+    end
+
   end
 end
 
