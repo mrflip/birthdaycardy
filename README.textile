@@ -27,7 +27,7 @@ Get creative:
 
 h3. Crop your photos
 
-Crop and center the photos to the same aspect ratio and so that each letter more or less fills the frame.
+Crop and center the photos to each hanve the same aspect ratio to more or less fill the frame.
 
 Create a directory outside the git repo called @raw_photos@ or whatever, and make subdirectories for each letter. For example,
 
