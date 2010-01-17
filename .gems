@@ -1,0 +1,8 @@
+dependencies
+rack
+rack-test
+sinatra
+haml
+extlib
+monk-glue
+json
