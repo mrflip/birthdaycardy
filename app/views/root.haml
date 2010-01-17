@@ -2,7 +2,7 @@
 %table
   - settings(:greeting).split(" ").each do |word|
     %tr
-      - word.chars.each do |letter|
+      - word.split(//).each do |letter|
         %td
           - random_img(letter)
           
