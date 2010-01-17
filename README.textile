@@ -1,48 +1,80 @@
-h1. FloodMonkey - Supervise your stream
+h1. BirthdayCardy
 
-FloodMonkey helps manage subscriptions to the MySpace Flood, their real-time activity stream API.
+BirthdayCardy lets you make a simple rotating-image webpage using silly pictures of your friends to spell a message.  Um that might not make any sense but if you go look at http://birthdaycardy.heroku.com you can see what I mean.
 
-FloodMonkey is designed for people looking to capture firehose-level (100%) data streams.  We use it to haul in 25GB+ of raw data every day with a single small EC2 instance and room to spare.
+1) Take multiple photos of your friends in silly YMCA poses spelling out letters in a message. This will take much beer.
+2) Crop and resize them to squares. This will take much patience.
+3) Add them to the right directories and deploy. This will take almost no time at all.
+4) Email to your friends!!!
 
-* A simple Sinatra frontend to manage and monitor subscriptions
-* Even yet still more lightweight scripts to handle publish callbacks as quickly and simply as possible, and stream them directly to disk.
-* Simple worker scripts to bundle the data and ship it to S3
-* Scripts to deploy, configure and monitor the various moving parts. 
+h2. Detailed instructions
 
-FloodMonkey is *not* designed for anything real-time. The endpoint streams everything to disk for late bulk processing -- we use "wukong":http://github.com/mrflip/wukong and "wuclan.":http://github.com/mrflip/wuclan
+h3. Photo Shoot
+
+You need the letters "A  B  D  H  I  P  R  T  Y" to spell "Happy Birthday". Since I know you'd rather code than spell, you can run
+
+<pre>
+  ruby -e 'puts "happy birthday".gsub(/[^\w]/,"").chars.to_a.uniq.sort.join(" ")'
+</pre>
+
+to list the letters you need.
+
+Get creative:
+
+* Make your friends stand in YMCA poses. More salacious = more better
+* Take photos with "Light Writing":http://www.flickr.com/photos/nirtober/sets/72057594129936422/
+* Find letters in "found objects and in your neighborhood":http://www.davidairey.com/alphabet-photo-art-gallery/
+
+h3. Crop your photos
+
+Crop and center the photos to the same aspect ratio and so that each letter more or less fills the frame.
+
+Create a directory outside the git repo called @raw_photos@ or whatever, and make subdirectories for each letter. For example,
+
+<pre>
+  $ ls -d raw_photos/*
+  raw_photos/a  raw_photos/b  raw_photos/d
+  raw_photos/h  raw_photos/i  raw_photos/p
+  raw_photos/r  raw_photos/t  raw_photos/y
+</pre>
+
+Copy each photo to its appropriate folder. You can name them anything you want.
+
+h3. Resize the photos
+
+You can resize them all from the commandline with ImageMagick. For example, let's say your photos are in raw_photos and you'd like to have all be resized to 180 pixels:
+
+<pre>
+   $ cd raw_photos
+   $ mkdir path/to/project/public/images/180px
+   $ for foo in */*.jpg ; do echo $foo ; convert -resize 180x180 $foo path/to/project/public/images/180px/$foo ; done
+</pre>
+
+h3. Edit config/settings.yml
+
+Change the settings for your project:
+* @:greeting@ sets the phrase that is displayed. Each word forms a new row.
+* @:random_img_path@ sets the path within the @public/@ directory to the letters' folders
+* Change @:session_secret@ to something random, and set the domain and repo appropriately.
+
+You should remove the @config/settings.yml@ file from your repo and copy it over on deploy.
 
 h2. Credits
 
-* 
+* Thanks to Jo for resizing everything.
 * The frontend app is based on Monk / Cartilage, a skeleton for building Sinatra apps.
-
+* Happy Birthday Becky
 
 h2. Setup
 
-Ruby Enterprise Edition
+I recommend heroku -- it's free and it takes like seconds to deploy. If you'd like, however, there are capistrano scripts for deployment and god scripts for monitoring the server
+
+Install nginx, unicorn and the other requisite gems (see the @.gems@ file). Customize the files in @config/production@ and copy them to their corresponding places on the server.  Then do a deploy:
 
 <pre>
-    sudo apt-get install libssl-dev libreadline5-dev;
-    latest_ree=ruby-enterprise-1.8.7-2009.10.tar.gz;
-    wget "http://rubyforge.org/frs/download.php/66162/${latest_ree}.tar.gz" ;
-    tar xvzf ${latest_ree}.tar.gz;
-    cd ${latest_ree_gz};
-    sudo ./installer --auto /usr/local/ree;
-</pre>    
-
-<pre>
-    latest_nginx=nginx-0.7.64;
-    wget "http://sysoev.ru/nginx/${latest_nginx}.tar.gz" ;
-    tar xvzf ${latest_nginx}.tar.gz ;
-    sudo /usr/local/ree/bin/passenger-install-nginx-module --prefix=/usr/local/nginx --nginx-source-dir=/usr/local/src/$latest_nginx --extra-configure-flags=' --with-http_ssl_module --with-http_gzip_static_module --add-module=/usr/local/src/ngx-fancyindex-0.2 --add-module=/usr/local/src/nginx_upload_module-2.0.10 --add-module=/usr/local/src/nginx_uploadprogress_module --with-pcre --with-ld-opt=-lssl --with-sha1-asm --with-md5=/usr/include --with-md5-asm --http-proxy-temp-path="/tmp/nginx-proxy_temp" --http-fastcgi-temp-path="/tmp/nginx-fastcgi_temp" --http-client-body-temp-path="/tmp/nginx-client_body_temp" --pid-path="/var/run/nginx/nginx.pid" --conf-path="/slice/etc/nginx/nginx.conf" --lock-path="/var/run/nginx/nginx.lock" --http-log-path="/var/log/nginx/access.log" --error-log-path="/var/log/nginx/error.log" '
+    # initial deploy
+    cap deploy:setup                                                                     
+    cap deploy:cold
+    # Copy over the server's settings.yml for inclusion in each deploy
+    scp  config/settings.yml remotehost.com:/var/www/birthdaycardy/shared/config/settings.yml
 </pre>
-
-<pre>
-    sudo useradd -G admin,sudo deploy
-    sudo passwd deploy
-</pre>
-
-sudo gem install rack rack-test sinatra haml extlib monk-glue json unicorn god godhead haml 
-cap deploy:setup
-cap deploy:cold
-scp  config/settings.yml remotehost.com:/var/www/cartilage/shared/config/settings.yml
