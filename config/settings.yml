@@ -1,0 +1,28 @@
+defaults: &defaults
+  :app_name:            cartilage
+  :domain:              s2.infinitemonkeys.info
+  :repository:          git://github.com/mrflip/cartilage.git
+  
+# sudo /usr/local/ree/bin/passenger-install-nginx-module --prefix=/usr/local/nginx --nginx-source-dir=/usr/local/src/$latest_nginx --extra-configure-flags=' --with-http_ssl_module --with-http_gzip_static_module --add-module=/usr/local/src/ngx-fancyindex-0.2 --add-module=/usr/local/src/nginx_upload_module-2.0.10 --add-module=/usr/local/src/nginx_uploadprogress_module --with-pcre --with-ld-opt=-lssl --with-sha1-asm --with-md5=/usr/include --with-md5-asm --http-proxy-temp-path="/tmp/nginx-proxy_temp" --http-fastcgi-temp-path="/tmp/nginx-fastcgi_temp" --http-client-body-temp-path="/tmp/nginx-client_body_temp" --pid-path="/var/run/nginx/nginx.pid" --conf-path="/slice/etc/nginx/nginx.conf" --lock-path="/var/run/nginx/nginx.lock" --http-log-path="/var/log/nginx/access.log" --error-log-path="/var/log/nginx/error.log" '   
+ 
+:development:
+  <<: *defaults
+  :session_secret:      124b220a534b676a06641b43c3ab596ff85449d48ecd307a8910614ba944aab66a1d4eb43093789b
+  :sqlite3:
+    :adapter: sqlite3
+    :database: db/development.sqlite3
+
+:test:
+  <<: *defaults
+  :session_secret:     3850043ed66fdb0e14bc7bcd83318b5bb961107b58d335f2c30726924e5b46d4d5595b06ebb6eeb1
+  :sqlite3:
+    :adapter: sqlite3
+    :database: db/test.sqlite3
+
+:production:
+  <<: *defaults
+  :session_secret:      e8f2f6b25fa845837f2dd3bd0af81a0d4b1615c570015432459e8758a80df83e5c5ee9c5
+  :sqlite3:
+    :adapter: sqlite3
+    :database: db/production.sqlite3
+
