@@ -42,7 +42,7 @@ Copy each photo to its appropriate folder. You can name them anything you want.
 
 h3. Resize the photos
 
-You can resize them all from the commandline with ImageMagick. For example, let's say your photos are in raw_photos and you'd like to have all be resized to 180 pixels:
+You can resize them all from the commandline with ImageMagick. Let's say your photos are in @raw_photos@ and you'd like to resize them to 180 pixels:
 
 <pre>
    $ cd raw_photos
@@ -55,6 +55,7 @@ h3. Edit config/settings.yml
 Change the settings for your project:
 * @:greeting@ sets the phrase that is displayed. Each word forms a new row.
 * @:random_img_path@ sets the path within the @public/@ directory to the letters' folders
+* If you set :page_refresh_rate it will insert a 
 * Change @:session_secret@ to something random, and set the domain and repo appropriately.
 
 You should remove the @config/settings.yml@ file from your repo and copy it over on deploy.

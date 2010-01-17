@@ -5,6 +5,7 @@
     %meta{:"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}/
     %link{:rel => "stylesheet", :href => "/css/reset.css", :type => "text/css"}/
     %link{:rel => "stylesheet", :href => "/css/main.css", :type => "text/css"}/
-
+    - if settings(:page_refresh_rate)
+      %meta{ 'http-equiv' => "refresh", :content => settings(:page_refresh_rate) }
   %body
     != yield

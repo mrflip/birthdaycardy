@@ -1,12 +1,14 @@
 defaults: &defaults
-  :app_name:            birthdaycardy
-  :domain:              birthdaycardy.heroku.com
-  :repository:          git://github.com/mrflip/birthdaycardy.git
 
   # App settings
   :greeting:            happy birth day becky
   :random_img_path:     images/180px
+  :page_refresh_rate:   5 # seconds
 
+  # Deploy/server settings
+  :app_name:            birthdaycardy
+  :domain:              birthdaycardy.heroku.com
+  :repository:          git://github.com/mrflip/birthdaycardy.git
   
 # sudo /usr/local/ree/bin/passenger-install-nginx-module --prefix=/usr/local/nginx --nginx-source-dir=/usr/local/src/$latest_nginx --extra-configure-flags=' --with-http_ssl_module --with-http_gzip_static_module --add-module=/usr/local/src/ngx-fancyindex-0.2 --add-module=/usr/local/src/nginx_upload_module-2.0.10 --add-module=/usr/local/src/nginx_uploadprogress_module --with-pcre --with-ld-opt=-lssl --with-sha1-asm --with-md5=/usr/include --with-md5-asm --http-proxy-temp-path="/tmp/nginx-proxy_temp" --http-fastcgi-temp-path="/tmp/nginx-fastcgi_temp" --http-client-body-temp-path="/tmp/nginx-client_body_temp" --pid-path="/var/run/nginx/nginx.pid" --conf-path="/slice/etc/nginx/nginx.conf" --lock-path="/var/run/nginx/nginx.lock" --http-log-path="/var/log/nginx/access.log" --error-log-path="/var/log/nginx/error.log" '   
  
