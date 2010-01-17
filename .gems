@@ -1,6 +1,4 @@
-dependencies
 rack
-rack-test
 sinatra
 haml
 extlib

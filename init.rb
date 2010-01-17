@@ -1,18 +1,18 @@
 ::ROOT_DIR = File.expand_path(File.dirname(__FILE__)) unless defined? ::ROOT_DIR
 # require "rubygems"
 
-begin
-  require "vendor/dependencies/lib/dependencies"
-rescue LoadError
-  require "dependencies"
-end
+# begin
+#   require "vendor/dependencies/lib/dependencies"
+# rescue LoadError
+#   require "dependencies"
+# end
 require "monk/glue"
-require "json"
 require 'sinatra'
 require 'haml'
-# require 'dm-core'
-# require 'dm-validations'
-# require 'dm-timestamps'
+# require "json"
+# extlib
+# monk-glue
+# json
 
 class Main < Monk::Glue
   set :app_file, __FILE__
