@@ -11,7 +11,7 @@ h2. Detailed instructions
 
 h3. Photo Shoot
 
-You need the letters "A  B  D  H  I  P  R  T  Y" to spell "Happy Birthday". Since I know you'd rather code than spell, you can run
+You need the letters "A  B  D  H  I  P  R  T  Y" to spell "Happy Birthday", but you can use any old greeting (see @settings.yml@). Since I know you'd rather code than spell, run your greeting through
 
 <pre>
   ruby -e 'puts "happy birthday".gsub(/[^\w]/,"").chars.to_a.uniq.sort.join(" ")'
@@ -21,8 +21,8 @@ to list the letters you need.
 
 Get creative:
 
-* Make your friends stand in YMCA poses. More salacious = more better
-* Take photos with "Light Writing":http://www.flickr.com/photos/nirtober/sets/72057594129936422/
+* Make your friends stand in YMCA poses. More salacious the pose = more better the pose
+* Use "Light Writing":http://www.flickr.com/photos/nirtober/sets/72057594129936422/
 * Find letters in "found objects and in your neighborhood":http://www.davidairey.com/alphabet-photo-art-gallery/
 
 h3. Crop your photos
@@ -55,7 +55,7 @@ h3. Edit config/settings.yml
 Change the settings for your project:
 * @:greeting@ sets the phrase that is displayed. Each word forms a new row.
 * @:random_img_path@ sets the path within the @public/@ directory to the letters' folders
-* If you set :page_refresh_rate it will insert a 
+* If you set :page_refresh_rate it will insert a @meta refresh@ tag in the page header to reload every that number of seconds.
 * Change @:session_secret@ to something random, and set the domain and repo appropriately.
 
 You should remove the @config/settings.yml@ file from your repo and copy it over on deploy.
@@ -68,7 +68,7 @@ h2. Credits
 
 h2. Setup
 
-I recommend heroku -- it's free and it takes like seconds to deploy. If you'd like, however, there are capistrano scripts for deployment and god scripts for monitoring the server
+I recommend "heroku":http://heroku.com -- it's free and it takes like seconds to deploy. If you'd like, however, there are capistrano scripts for deployment and god scripts for monitoring the server
 
 Install nginx, unicorn and the other requisite gems (see the @.gems@ file). Customize the files in @config/production@ and copy them to their corresponding places on the server.  Then do a deploy:
 
